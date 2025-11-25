@@ -1,0 +1,80 @@
+package com.bank.system.model;
+import static com.bank.system.utils.ConsoleUtil.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Transaction {
+    private final String transactionId;
+    private final String accountNumber;
+    private final String type; // "DEPOSIT" or "WITHDRAWAL"
+    private final double amount;
+    private final double balanceAfter;
+    private final String timestamp;
+    private static int transactionCounter = 0;
+
+    public Transaction(String accountNumber, String type, double amount, double balanceAfter) {
+        this.accountNumber = accountNumber;
+        this.type = type;
+        this.amount = amount;
+        this.balanceAfter = balanceAfter;
+        this.transactionId = generateTransactionId();
+        this.timestamp = getCurrentTimestamp();
+    }
+
+    private String generateTransactionId() {
+        transactionCounter++;
+        return String.format("TXN%03d", transactionCounter);
+    }
+
+    private String getCurrentTimestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy hh:mm a");
+        return now.format(formatter);
+    }
+
+    // Method to display transaction details
+    public void displayTransactionDetails() {
+        print("");
+        print("TRANSACTION CONFIRMATION");
+        print(" ");
+        print("Transaction ID: " + transactionId);
+        print("Account: " + accountNumber);
+        print("Type: " + type);
+        System.out.printf("Amount: $%.2f%n", amount);
+        System.out.printf("Balance After: $%.2f%n", balanceAfter);
+        print("Date/Time: " + timestamp);
+    }
+
+    // Getters
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public double getBalanceAfter() {
+        return balanceAfter;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public static int getTransactionCounter() {
+        return transactionCounter;
+    }
+
+    public static void resetTransactionCounter() {
+        transactionCounter = 0;
+    }
+}
