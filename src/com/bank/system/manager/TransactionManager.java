@@ -69,12 +69,13 @@ public class TransactionManager {
             }
 
         }
-        printSubSeparator(85);
+       // printSubSeparator(85);
         if (!hasTransactions) {
             printSeparator();
             print("No transactions found for this account.");
             printSeparator();
         } else {
+            printSubSeparator(85);
             // Display summary
             print(" ");
             print("SUMMARY:");
