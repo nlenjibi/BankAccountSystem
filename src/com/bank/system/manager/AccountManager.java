@@ -1,5 +1,5 @@
 package com.bank.system.manager;
-
+import static com.bank.system.utils.ConsoleFormatter.*;
 import static com.bank.system.utils.ConsoleUtil.*;
 import com.bank.system.model.Account;
 public class AccountManager {
@@ -36,21 +36,20 @@ public class AccountManager {
     // Method to view all accounts
     public void viewAllAccounts() {
         print(" ");
-        print("ACCOUNT LISTING");
-        print(" ");
-        System.out.printf("%-15s %-15s %-9s %-12s %-8s%n", "ACCOUNT NUMBER", "CUSTOMER NAME", "TYPE", "BALANCE", "STATUS");
-
+        printHeader("ACCOUNT LISTING");
+        printSeparator();
+        System.out.printf("%-8s | %-15s | %-9s | %-10s | %-8s%n",
+                "ACC NO", "CUSTOMER NAME", "TYPE", "BALANCE", "STATUS");
+        printSeparator();
         for (int i = 0; i < accountCount; i++) {
             if (accounts[i] != null) {
                 accounts[i].displayAccountDetails();
-                print(" "); // Add a blank line after each account's details
+              printSeparator();
             }
         }
 
         System.out.printf("Total Accounts: %d%n", getAccountCount());
-        System.out.printf("Total Bank Balance: $%.2f%n", getTotalBalance());
-        print(" ");
-
+        System.out.printf("Total Bank Balance: $,%.2f%n", getTotalBalance());
         pressEnterToContinue(); // Wait for user to press Enter
     }
 
@@ -79,4 +78,19 @@ public class AccountManager {
     public int getAccountCountActual() {
         return accountCount;
     }
+    public  void displayAccountDetails(Account account) {
+        if (account == null) {
+            print("Account not found!");
+            pressEnterToContinue();
+            return;
+        }
+
+        print(" ");
+        print("Account Details:");
+        print("Customer: " + account.getCustomer().getName());
+        print("Account Type: " + account.getAccountType());
+        printf("Current Balance: $,%.2f%n", account.getBalance());
+    }
+
+
 }

@@ -13,13 +13,13 @@ public class CheckingAccount extends Account {
 
     @Override
     public void displayAccountDetails() {
-        printf("%-15s %-15s %-9s $%-10.2f %-8s%n",
+        printf("%-8s | %-15s | %-9s | $%,-9.2f | %-8s%n",
                 getAccountNumber(),
                 getCustomer().getName(),
                 getAccountType(),
                 getBalance(),
                 getStatus());
-        printf("%-15s Overdraft Limit: $%.2f Monthly Fee: $%.2f%n",
+        printf("%-8s | Overdraft Limit: $%.2f | Monthly Fee: $,%.2f%n",
                 "",
                 overdraftLimit,
                 monthlyFee);

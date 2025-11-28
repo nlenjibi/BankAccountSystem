@@ -24,6 +24,7 @@ public abstract class Account implements Transactable {
 
     // Abstract methods to be implemented by subclasses
     public abstract void displayAccountDetails();
+
     public abstract String getAccountType();
 
     // Deposit method - common for all account types

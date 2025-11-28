@@ -1,4 +1,5 @@
 package com.bank.system.model;
+import static com.bank.system.utils.ConsoleFormatter.printSubSeparator;
 import static com.bank.system.utils.ConsoleUtil.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -33,16 +34,18 @@ public class Transaction {
     }
 
     // Method to display transaction details
-    public void displayTransactionDetails() {
-        print("");
+    public void displayTransactionDetails(double previousBalance) {
+
         print("TRANSACTION CONFIRMATION");
-        print(" ");
+        printSubSeparator(60);
         print("Transaction ID: " + transactionId);
         print("Account: " + accountNumber);
         print("Type: " + type);
         System.out.printf("Amount: $%.2f%n", amount);
-        System.out.printf("Balance After: $%.2f%n", balanceAfter);
+        printf("Previous Balance: $%.2f%n", previousBalance);
+        System.out.printf("NewBalance : $%.2f%n", balanceAfter);
         print("Date/Time: " + timestamp);
+        printSubSeparator(60);
     }
 
     // Getters

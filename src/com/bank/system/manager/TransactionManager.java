@@ -1,6 +1,11 @@
 package com.bank.system.manager;
 
+import com.bank.system.manager.AccountManager;
+import static com.bank.system.utils.ConsoleFormatter.printSeparator;
+import static com.bank.system.utils.ConsoleFormatter.printSubSeparator;
 import static com.bank.system.utils.ConsoleUtil.*;
+
+import com.bank.system.model.Account;
 import com.bank.system.model.Transaction;
 
 public class TransactionManager {
@@ -23,45 +28,63 @@ public class TransactionManager {
     }
 
     // Method to view transactions by account
-    public void viewTransactionsByAccount(String accountNumber) {
+    public void viewTransactionsByAccount(String accountNumber, Account account) {
         print(" ");
-        print("TRANSACTION HISTORY FOR ACCOUNT: " + accountNumber);
+        print("TRANSACTION HISTORY FOR ACCOUNT: " + account.getAccountNumber() + " - " + account.getCustomer().getName());
+        printSeparator();
         print(" ");
-
+        print("Account :" + account.getAccountNumber() + " - " + account.getCustomer().getName() );
+        print("Account Type: " + account.getAccountType());
+        printf("Current Balance: $,%.2f%n", account.getBalance());
+        print("");
         boolean hasTransactions = false;
 
         // Display transactions in reverse chronological order (newest first)
         for (int i = transactionCount - 1; i >= 0; i--) {
             if (transactions[i] != null && transactions[i].getAccountNumber().equals(accountNumber)) {
                 if (!hasTransactions) {
-                    printf("%-12s %-20s %-10s %-12s %-15s%n",
+                    print("TRANSUCTION HISTROY");
+                    printSubSeparator(85);
+
+                    printf("%-12s | %-20s | %-10s | %-14s | %-15s%n",
                             "TXN ID", "DATE/TIME", "TYPE", "AMOUNT", "BALANCE AFTER");
                     hasTransactions = true;
+                    printSubSeparator(85);
                 }
+                double amount = transactions[i].getAmount();
 
-                printf("%-12s %-20s %-10s $%-11.2f $%-14.2f%n",
+                // Determine sign
+                String sign = transactions[i].getType().equalsIgnoreCase("WITHDRAWAL") ? "-" : "+";
+                printf("%-12s | %-20s | %-10s | %s$%,12.2f | $%,15.2f%n",
                         transactions[i].getTransactionId(),
                         transactions[i].getTimestamp(),
                         transactions[i].getType(),
-                        transactions[i].getAmount(),
+                        sign,
+                        amount,
                         transactions[i].getBalanceAfter());
-            }
-        }
 
+
+
+
+            }
+
+        }
+        printSubSeparator(85);
         if (!hasTransactions) {
+            printSeparator();
             print("No transactions found for this account.");
+            printSeparator();
         } else {
             // Display summary
             print(" ");
             print("SUMMARY:");
-            printf("Total Deposits: $%.2f%n", calculateTotalDeposits(accountNumber));
-            printf("Total Withdrawals: $%.2f%n", calculateTotalWithdrawals(accountNumber));
-            printf("Net Change: $%.2f%n",
+            print("Total Transactions: "+ transactionCount );
+            printf("Total Deposits: $%,.2f%n", calculateTotalDeposits(accountNumber));
+            printf("Total Withdrawals: $%,.2f%n", calculateTotalWithdrawals(accountNumber));
+            printf("Net Change: +$%,.2f%n",
                     calculateTotalDeposits(accountNumber) - calculateTotalWithdrawals(accountNumber));
         }
 
-        print(" ");
-        System.out.print("Press Enter to continue...");
         pressEnterToContinue();
     }
 
