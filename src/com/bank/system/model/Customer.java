@@ -23,6 +23,7 @@ public abstract class Customer {
 
     // Abstract methods to be implemented by subclasses
     public abstract void displayCustomerDetails();
+
     public abstract String getCustomerType();
 
     // Getters and setters
