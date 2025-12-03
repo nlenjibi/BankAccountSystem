@@ -43,21 +43,6 @@ public class Main {
     }
 
 
-
-    private static void viewAccounts() {
-        accountManager.viewAllAccounts();
-    }
-    private static void viewTransactionHistory() {
-        print(" ");
-        print(underline("VIEW TRANSACTION HISTORY", '-'));
-        print(" ");
-
-        String accountNumber = readString("Enter Account Number: ", s -> !s.isEmpty(), "Account Number cannot be empty.");
-        Account account = accountManager.findAccount(accountNumber);
-        transactionManager.viewTransactionsByAccount(accountNumber, account);
-    }
-
-
     public static void displayWelcomeMessage() {
         print("\nWelcome to the Bank Account Management System!");
         print("Please select an option from the menu below:");

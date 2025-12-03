@@ -118,6 +118,9 @@ public  class CreateAccountHandler {
             return new RegularCustomer(data.name, data.age, data.contact, data.address);
         }
     }
+    public static void viewAccounts() {
+        accountManager.viewAllAccounts();
+    }
 
 
 }

@@ -102,5 +102,14 @@ public class TransactionProcessor {
     public static void processTransaction() {
         TransactionProcessor.execute();
     }
+    public static void viewTransactionHistory() {
+        print(" ");
+        print(underline("VIEW TRANSACTION HISTORY", '-'));
+        print(" ");
+
+        String accountNumber = readString("Enter Account Number: ", s -> !s.isEmpty(), "Account Number cannot be empty.");
+        Account account = accountManager.findAccount(accountNumber);
+        transactionManager.viewTransactionsByAccount(accountNumber, account);
+    }
 
 }
