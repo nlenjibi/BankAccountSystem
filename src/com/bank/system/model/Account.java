@@ -10,7 +10,7 @@ public abstract class Account implements Transactable {
     private String status;
     private static int accountCounter = 0;
 
-    public Account(Customer customer, double initialDeposit) {
+     public Account(Customer customer, double initialDeposit) {
         this.customer = customer;
         this.balance = initialDeposit;
         this.status = "Active";

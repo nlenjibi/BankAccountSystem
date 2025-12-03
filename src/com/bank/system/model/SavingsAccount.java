@@ -4,7 +4,6 @@ import static com.bank.system.utils.ConsoleUtil.printf;
 public class SavingsAccount extends Account  {
     private final double interestRate;
     private final double minimumBalance;
-
     public SavingsAccount(Customer customer, double initialBalance) {
         super(customer, initialBalance);
         this.interestRate = 3.5; // 3.5% annually
@@ -58,16 +57,5 @@ public class SavingsAccount extends Account  {
     public double getMinimumBalance() {
         return minimumBalance;
     }
-    @Override
-    public boolean processTransaction(double amount, String type) {
 
-        if (type.equalsIgnoreCase("DEPOSIT")) {
-
-            return deposit(amount);
-
-        } else if (type.equalsIgnoreCase("WITHDRAWAL")) {
-            return withdraw(amount);
-        }
-        return false;
-    }
 }

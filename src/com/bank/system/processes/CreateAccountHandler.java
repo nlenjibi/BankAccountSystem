@@ -5,7 +5,8 @@ import static com.bank.system.utils.ConsoleUtil.*;
 import com.bank.system.manager.AccountManager;
 
 import com.bank.system.model.*;
-
+import com.bank.system.manager.TransactionManager;
+import com.bank.system.model.Transaction;
 public  class CreateAccountHandler {
 
     private static final AccountManager accountManager = new AccountManager();
@@ -21,27 +22,37 @@ public  class CreateAccountHandler {
         Customer customer;
         CustomerData data = readCustomerDetails();
         customer = createCustomerFromData(data);
-
         print(" ");
         print("Account type:");
-        print("1. Savings Account (Interest: 3.5% Min Balance: $500)");
+        boolean isRegular = "Regular".equals(customer.getCustomerType());
+        double savingsMin = isRegular ? 500 : 10000;
+        print("1. Savings Account (Interest: 3.5% Min Balance: $" + String.format("%,.0f", savingsMin) + ")");
         print("2. Checking Account (Overdraft: $1,000, Monthly Fee: $10)");
-
-        int accountType = getValidIntInput("Select type (1-2): ", 1,2);
+        int accountType = getValidIntInput("Select type (1-2): ", 1, 2);
         double initialDeposit = getValidDoubleInput(
                 "Enter initial deposit amount: $",
-                v -> v > 0,
-                "Value Must be greater than  zero."
+                v -> v >= savingsMin,
+                "Value must be greater than or equal to $" + String.format("%,.0f", savingsMin) + "."
         );
 
         Account account;
         if (accountType == 2) {
             account = new CheckingAccount(customer, initialDeposit);
+
         } else {
             account = new SavingsAccount(customer, initialDeposit);
         }
 
         if (accountManager.addAccount(account)) {
+            // Create transaction record
+            Transaction transaction = new Transaction(
+                    account.getAccountNumber(),
+                    account.getAccountType(),
+                    initialDeposit,
+                    account.getBalance()
+            );
+            TransactionManager transactionManager = new TransactionManager();
+            transactionManager.addTransaction(transaction);
             displayAccountCreatedInfo(account, customer);
         } else {
             print("Failed to create account. Maximum account limit reached.");
@@ -56,17 +67,17 @@ public  class CreateAccountHandler {
     }
     private static CustomerData readCustomerDetails() {
         String name = readString("Enter Customer Name: ",
-                s -> !s.isEmpty(),
-                "Name cannot be empty.");
+                s -> s != null && !s.trim().isEmpty() && !s.matches(".*\\d.*"),
+                "Name cannot be empty and cannot contain digits.");
 
         int age = getValidIntInput("Enter customer age: ", 1, 150);
 
         String contact = readString("Enter customer contact: ",
-                s -> !s.isEmpty(),
-                "Contact cannot be empty.");
+                s -> s != null && !s.trim().isEmpty() && !s.matches(".*[A-Za-z].*"),
+                "Contact cannot be empty and cannot contain letters.");
 
         String address = readString("Enter customer address: ",
-                s -> !s.isEmpty(),
+                s -> s != null && !s.trim().isEmpty(),
                 "Address cannot be empty.");
 
         return new CustomerData(name, age, contact, address);

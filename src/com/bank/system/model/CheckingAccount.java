@@ -1,9 +1,11 @@
 package com.bank.system.model;
+
 import static com.bank.system.utils.ConsoleUtil.printf;
 
 public class CheckingAccount extends Account {
     private final double overdraftLimit;
     private final double monthlyFee;
+
 
     public CheckingAccount(Customer customer, double initialBalance) {
         super(customer, initialBalance);
@@ -24,6 +26,7 @@ public class CheckingAccount extends Account {
                 overdraftLimit,
                 monthlyFee);
     }
+
 
     @Override
     public String getAccountType() {
@@ -67,16 +70,5 @@ public class CheckingAccount extends Account {
     public double getMonthlyFee() {
         return monthlyFee;
     }
-    @Override
-    public boolean processTransaction(double amount, String type) {
 
-        if (type.equalsIgnoreCase("DEPOSIT")) {
-
-            return deposit(amount);
-
-        } else if (type.equalsIgnoreCase("WITHDRAWAL")) {
-            return withdraw(amount);
-        }
-        return false;
-    }
 }
