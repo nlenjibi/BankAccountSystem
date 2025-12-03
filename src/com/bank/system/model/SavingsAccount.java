@@ -19,7 +19,7 @@ public class SavingsAccount extends Account  {
                 getAccountType(),
                 getBalance(),
                 getStatus());
-        printf("%-8s | Interest Rate: %.1f%% | Min Balance: $,%.2f%n",
+        printf("%-8s | Interest Rate: %.1f%% | Min Balance: $%,.2f%n",
                 "",
                 interestRate,
                 minimumBalance);

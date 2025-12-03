@@ -19,7 +19,7 @@ public class CheckingAccount extends Account {
                 getAccountType(),
                 getBalance(),
                 getStatus());
-        printf("%-8s | Overdraft Limit: $%.2f | Monthly Fee: $,%.2f%n",
+        printf("%-8s | Overdraft Limit: $%.2f | Monthly Fee: $%,.2f%n",
                 "",
                 overdraftLimit,
                 monthlyFee);

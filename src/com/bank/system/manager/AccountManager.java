@@ -48,8 +48,8 @@ public class AccountManager {
             }
         }
 
-        System.out.printf("Total Accounts: %d%n", getAccountCount());
-        System.out.printf("Total Bank Balance: $,%.2f%n", getTotalBalance());
+        printf("Total Accounts: %d%n", getAccountCount());
+        printf("Total Bank Balance: $%,.2f%n", getTotalBalance());
         pressEnterToContinue(); // Wait for user to press Enter
     }
 

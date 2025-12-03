@@ -35,7 +35,7 @@ public class TransactionManager {
         print(" ");
         print("Account :" + account.getAccountNumber() + " - " + account.getCustomer().getName() );
         print("Account Type: " + account.getAccountType());
-        printf("Current Balance: $,%.2f%n", account.getBalance());
+        printf("Current Balance: $%,.2f%n", account.getBalance());
         print("");
         boolean hasTransactions = false;
 
@@ -79,7 +79,7 @@ public class TransactionManager {
             // Display summary
             print(" ");
             print("SUMMARY:");
-            print("Total Transactions: "+ transactionCount );
+            print("Total Transactions: "+ getTransactionCount() );
             printf("Total Deposits: $%,.2f%n", calculateTotalDeposits(accountNumber));
             printf("Total Withdrawals: $%,.2f%n", calculateTotalWithdrawals(accountNumber));
             printf("Net Change: +$%,.2f%n",
@@ -125,8 +125,5 @@ public class TransactionManager {
         return transactions;
     }
 
-    // Getter for transaction count
-    public int getTransactionCountActual() {
-        return transactionCount;
-    }
+
 }
