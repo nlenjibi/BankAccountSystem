@@ -10,11 +10,15 @@ import static com.bank.system.utils.ConsoleFormatter.*;
 
 public class TransactionProcessor {
 
-    private static final TransactionManager transactionManager = new TransactionManager();
-    private static final AccountManager accountManager = new AccountManager();
+    private final TransactionManager transactionManager;
+    private final AccountManager accountManager;
 
+    public TransactionProcessor(AccountManager accountManager, TransactionManager transactionManager) {
+        this.transactionManager = transactionManager;
+        this.accountManager = accountManager;
+    }
 
-    private static void execute() {
+    private void execute() {
         print(" ");
         print("PROCESS TRANSACTION");
         printSubSeparator(60);
@@ -38,7 +42,7 @@ public class TransactionProcessor {
         print("2. Withdrawal");
         print(" ");
 
-        int transactionType = getValidIntInput("Select type (1-2): ", 1,2);
+        int transactionType = getValidIntInput("Select type (1-2): ", 1, 2);
         print(" ");
 
         String typeStr = (transactionType == 1) ? "DEPOSIT" : "WITHDRAWAL";
@@ -47,10 +51,9 @@ public class TransactionProcessor {
                 v -> v > 0,
                 "Amount must be greater than zero.");
 
-        boolean success;
         double previousBalance = account.getBalance();
 
-        success = account.processTransaction(amount, typeStr);
+        boolean success = account.processTransaction(amount, typeStr);
 
         if (!success) {
             handleFailedTransaction(transactionType, account);
@@ -58,7 +61,6 @@ public class TransactionProcessor {
             return;
         }
 
-        // Create transaction record
         Transaction transaction = new Transaction(
                 accountNumber,
                 typeStr,
@@ -68,27 +70,29 @@ public class TransactionProcessor {
 
         transactionManager.addTransaction(transaction);
 
-        // Display transaction confirmation
         transaction.displayTransactionDetails(previousBalance);
 
         print(" ");
 
         boolean confirmed = readConfirmation("Confirm transaction?");
-        handleTransactionConfirmation(confirmed, account, previousBalance);
+        handleTransactionConfirmation(confirmed, account, previousBalance, transaction);
         pressEnterToContinue();
     }
-    private static void handleTransactionConfirmation(boolean confirmed, Account account, double previousBalance) {
+
+    private void handleTransactionConfirmation(boolean confirmed, Account account, double previousBalance, Transaction transaction) {
         if (confirmed) {
             print(" ");
             print("✓ Transaction completed successfully!");
         } else {
-            // Rollback transaction
-            account.setBalance(previousBalance); // works for deposit or withdrawal
+            transactionManager.removeTransaction(transaction);
+            account.setBalance(previousBalance);
             print(" ");
             print("Transaction cancelled.");
         }
     }
-    private static void handleFailedTransaction(int transactionType, Account account) {
+
+
+    private void handleFailedTransaction(int transactionType, Account account) {
         if (transactionType == 1) {
             print("Deposit failed. Invalid amount.");
         } else {
@@ -99,10 +103,12 @@ public class TransactionProcessor {
             }
         }
     }
-    public static void processTransaction() {
-        TransactionProcessor.execute();
+
+    public void processTransaction() {
+        execute();
     }
-    public static void viewTransactionHistory() {
+
+    public void viewTransactionHistory() {
         print(" ");
         print(underline("VIEW TRANSACTION HISTORY", '-'));
         print(" ");
@@ -113,3 +119,4 @@ public class TransactionProcessor {
     }
 
 }
+

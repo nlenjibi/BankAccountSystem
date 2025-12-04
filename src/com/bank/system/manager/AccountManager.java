@@ -89,7 +89,7 @@ public class AccountManager {
         print("Account Details:");
         print("Customer: " + account.getCustomer().getName());
         print("Account Type: " + account.getAccountType());
-        printf("Current Balance: $,%.2f%n", account.getBalance());
+        printf("Current Balance: $%,.2f%n", account.getBalance());
     }
 
 

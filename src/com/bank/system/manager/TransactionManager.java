@@ -122,5 +122,22 @@ public class TransactionManager {
         return transactions;
     }
 
+  //Method to remove a transaction
+    public void removeTransaction(Transaction transaction) {
+        if (transaction == null) return;
+        String id = transaction.getTransactionId();
+        for (int i = 0; i < transactionCount; i++) {
+            if (transactions[i] != null && transactions[i].getTransactionId().equals(id)) {
+                for (int j = i; j < transactionCount - 1; j++) {
+                    transactions[j] = transactions[j + 1];
+                }
+                transactions[transactionCount - 1] = null;
+                transactionCount--;
+                break;
+            }
+        }
+    }
+
+
 
 }

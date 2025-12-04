@@ -41,9 +41,9 @@ public class Transaction {
         print("Transaction ID: " + transactionId);
         print("Account: " + accountNumber);
         print("Type: " + type);
-        System.out.printf("Amount: $%.2f%n", amount);
-        printf("Previous Balance: $%.2f%n", previousBalance);
-        System.out.printf("NewBalance : $%.2f%n", balanceAfter);
+        System.out.printf("Amount: $%,.2f%n", amount);
+        printf("Previous Balance: $%,.2f%n", previousBalance);
+        System.out.printf("NewBalance : $%,.2f%n", balanceAfter);
         print("Date/Time: " + timestamp);
         printSubSeparator(60);
     }
