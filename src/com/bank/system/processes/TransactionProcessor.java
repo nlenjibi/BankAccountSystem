@@ -93,7 +93,7 @@ public class TransactionProcessor {
             print("Deposit failed. Invalid amount.");
         } else {
             if (account instanceof SavingsAccount) {
-                print("Withdrawal failed. Insufficient funds or would go below minimum balance.");
+                print("Withdrawal failed. Insufficient funds.");
             } else {
                 print("Withdrawal failed. Insufficient funds or exceeds overdraft limit.");
             }

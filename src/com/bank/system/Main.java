@@ -5,13 +5,8 @@ import  static com.bank.system.processes.CreateAccountHandler.*;
 import static com.bank.system.processes.TransactionProcessor.*;
 import static com.bank.system.utils.ConsoleUtil.*;
 import static com.bank.system.utils.ConsoleFormatter.*;
-import com.bank.system.manager.AccountManager;
-import com.bank.system.manager.TransactionManager;
-import com.bank.system.model.*;
 
 public class Main {
-    private static final AccountManager accountManager = new AccountManager();
-    private static final TransactionManager transactionManager = new TransactionManager();
     // a custom println method to displace text to the console
 
     public static void main(String[] args) {
@@ -49,34 +44,6 @@ public class Main {
     }
 
 
-
-
-
-    private static void initializeSampleData() {
-        // Create sample customers
-        Customer customer1 = new RegularCustomer("John Smith", 35, "+1-555-0101", "456 Elm Street, Metropolis");
-        Customer customer2 = new RegularCustomer("Sarah Johnson", 28, "+1-555-0102", "789 Oak Avenue, Metropolis");
-        Customer customer3 = new PremiumCustomer("Michael Chen", 42, "+1-555-0103", "321 Pine Road, Metropolis");
-        Customer customer4 = new RegularCustomer("Emily Brown", 31, "+1-555-0104", "654 Maple Drive, Metropolis");
-        Customer customer5 = new PremiumCustomer("David Wilson", 48, "+1-555-0105", "987 Cedar Lane, Metropolis");
-
-        // Create sample accounts
-        Account account1 = new SavingsAccount(customer1, 5250.00);
-        Account account2 = new CheckingAccount(customer2, 3450.00);
-        Account account3 = new SavingsAccount(customer3, 15750.00);
-        Account account4 = new CheckingAccount(customer4, 890.00);
-        Account account5 = new SavingsAccount(customer5, 25300.00);
-
-        // Add accounts to the manager
-        accountManager.addAccount(account1);
-        accountManager.addAccount(account2);
-        accountManager.addAccount(account3);
-        accountManager.addAccount(account4);
-        accountManager.addAccount(account5);
-
-
-
-    }
 
     private static void displayMainMenu() {
 

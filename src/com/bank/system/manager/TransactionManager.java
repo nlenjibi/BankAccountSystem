@@ -63,13 +63,10 @@ public class TransactionManager {
                         amount,
                         transactions[i].getBalanceAfter());
 
-
-
-
             }
 
         }
-       // printSubSeparator(85);
+       //
         if (!hasTransactions) {
             printSeparator();
             print("No transactions found for this account.");

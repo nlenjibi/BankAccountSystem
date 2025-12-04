@@ -7,7 +7,7 @@ public class SavingsAccount extends Account  {
     public SavingsAccount(Customer customer, double initialBalance) {
         super(customer, initialBalance);
         this.interestRate = 3.5; // 3.5% annually
-        this.minimumBalance = 50.0; // $50 minimum balance
+        this.minimumBalance = 500.0; // $50 minimum balance
     }
 
     @Override
